@@ -1,30 +1,31 @@
 #include "LuaScript.h"
+#include <stdexcept>
+#include <system_error>
 
 LuaScript::LuaScript(const std::string &path, const std::string &fileName)
 {
-    // TODO 这里应该解决掉相对路径和绝对路径的问题
     if (fileName.empty())
     {
         // 这里应该抛出异常
-        throw 1; // TODO 这里的错误应该使用枚举
+
+        throw  std::invalid_argument("file name is empty");
     }
 
     m_LuaState = luaL_newstate();
     if (m_LuaState == NULL)
     {
-        throw 2;
+        throw std::runtime_error("new state fail");
     }
 
     std::string file = path + fileName;
     if (luaL_dofile(m_LuaState, file.c_str()) != LUA_OK)
     {
         lua_close(m_LuaState);
-        throw 3;
+        throw  std::invalid_argument("do file lua fail");
     }
 
     luaopen_base(m_LuaState);
 
-    //std::cout << "load file : " << fileName << std::endl;
     m_LuaFile = fileName;
 }
 

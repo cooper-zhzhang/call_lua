@@ -70,9 +70,9 @@ void LuaScriptManager::LoadLuaFile(std::string path, std::string fileName)
             assert(false);
         }
     }
-    catch(int e)
+    catch(const std::exception &e)
     {
-        std::cerr << "new luaScript fail error : " << e << ", file name: " << fileName << std::endl;
+        std::cerr << "new luaScript fail error : " << e.what() << ", file name: " << fileName << std::endl;
         assert(false);
     }
 
