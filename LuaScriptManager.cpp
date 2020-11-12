@@ -104,7 +104,6 @@ bool LuaScriptManager::RunLuaFunc(const std::string &fileName, const std::string
         pLuaScript->ExceLuaScript(funcName, varList, result, pResultList);
     }
 
-    // TODO 返回值 进行修正
     return true;
 }
 
